@@ -3,63 +3,76 @@
 <head>
     <title>Sentiment</title>
 
+    <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-<input id="thoughts" class="input left-to-right" />
-<div id="score"></div>
+  <!-- Gradient that fades the input text -->
+  <div class="text-fade"></div>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
-<script type="text/javascript">
-    $( document ).ready(function() {
-        $(".input").focus();
-    });
+  <!-- Input box that sends string to API -->
+  <input id="thoughts" class="input" />
 
-    // Setup before functions.
-    var typingTimer;
-    var doneTypingInterval = 1000;
-    var $input = $('.input');
+  <!-- Light that emulates and is dependant on sentiment score -->
+  <div class="light"></div>
+  <div class="light"></div>
+  <div class="light"></div>
+  <div class="light"></div>
+  <div class="light"></div>
+  <div class="light"></div>
+  <!-- <div id="score"></div> -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+  <script type="text/javascript">
+      $( document ).ready(function() {
+          $(".input").focus();
+      });
 
-    // On keyup, start the countdown
-    $input.on('keyup', function () {
-        clearTimeout(typingTimer);
-        typingTimer = setTimeout(doneTyping, doneTypingInterval);
-    });
+      // Setup before functions.
+      var typingTimer;
+      var doneTypingInterval = 1000;
+      var $input = $('.input');
 
-    //on keydown, clear the countdown 
-    $input.on('keydown', function () {
-        clearTimeout(typingTimer);
-    });
+      // On keyup, start the countdown
+      $input.on('keyup', function () {
+          clearTimeout(typingTimer);
+          typingTimer = setTimeout(doneTyping, doneTypingInterval);
+      });
 
-    //user is "finished typing," do something
-    function doneTyping () {
-      console.log("donetyping");
-    }
+      //on keydown, clear the countdown
+      $input.on('keydown', function () {
+          clearTimeout(typingTimer);
+      });
 
-    $('.input').keypress(function (e) {
-        if (e.which == 13) {
-            var query = $('.input').val();
-            var url = window.location.href + query;
-            $.get(url, function(resp) {
-                console.log(resp);
+      //user is "finished typing," do something
+      function doneTyping () {
+        console.log("donetyping");
+      }
 
-                // clear values
-                $('.input').val('');
-                $('#output').empty();
-                $('#output').append(resp.score);
-                $('html').removeClass('green red white');
+      $('.input').keypress(function (e) {
+          if (e.which == 13) {
+              var query = $('.input').val();
+              var url = window.location.href + query;
+              $.get(url, function(resp) {
+                  console.log(resp);
 
-                if (resp.score > 0) {
-                    $('html').addClass('green');
-                } else if (resp.score < 0) {
-                    $('html').addClass('red');
-                } else {
-                    $('html').addClass('white');
-                }
-            })
-        }
-    });
-</script>
+                  // clear values
+                  $('.input').val('');
+                  $('#output').empty();
+                  $('#output').append(resp.score);
 
+                  if (resp.score > 0) {
+                      $('.light').addClass('green');
+                  } else if (resp.score < 0) {
+                      $('.light').addClass('red');
+                  } else {
+                      $('.light').addClass('white');
+                  }
+                  setTimeout(function () {
+                      $('.light').removeClass('green red white');
+                    }, 4000);
+              })
+          }
+      });
+  </script>
 </body>
 </html>
