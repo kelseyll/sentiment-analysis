@@ -2,26 +2,23 @@
 <html>
 <head>
     <title>Sentiment</title>
+
+    <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-<input id="thoughts" class="input" />
-<div id="output"></div>
+<input id="thoughts" class="input left-to-right" />
+<div id="score"></div>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
 <script type="text/javascript">
-    $('.button').click(function() {
-        var query = $('.input').val();
-        var url = window.location.href + query;
-        $.get(url, function(resp) {
-            console.log(resp);
-            $('#output').empty();
-            $('#output').append(resp.score);
-        })
-    })
+    $( document ).ready(function() {
+        $(".input").focus();
+    });
+
     // Setup before functions.
     var typingTimer;
     var doneTypingInterval = 1000;
-    var $input = $('#thoughts');
+    var $input = $('.input');
 
     // On keyup, start the countdown
     $input.on('keyup', function () {
@@ -45,9 +42,20 @@
             var url = window.location.href + query;
             $.get(url, function(resp) {
                 console.log(resp);
-                 $('.input').val('');
+
+                // clear values
+                $('.input').val('');
                 $('#output').empty();
                 $('#output').append(resp.score);
+                $('html').removeClass('green red white');
+
+                if (resp.score > 0) {
+                    $('html').addClass('green');
+                } else if (resp.score < 0) {
+                    $('html').addClass('red');
+                } else {
+                    $('html').addClass('white');
+                }
             })
         }
     });
