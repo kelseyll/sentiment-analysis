@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentiment</title>
+</head>
+<body>
+<input id="thoughts" class="input" />
+<div id="output"></div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+<script type="text/javascript">
+    $('.button').click(function() {
+        var query = $('.input').val();
+        var url = window.location.href + query;
+        $.get(url, function(resp) {
+            console.log(resp);
+            $('#output').empty();
+            $('#output').append(resp.score);
+        })
+    })
+    // Setup before functions.
+    var typingTimer;
+    var doneTypingInterval = 1000;
+    var $input = $('#thoughts');
+
+    // On keyup, start the countdown
+    $input.on('keyup', function () {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(doneTyping, doneTypingInterval);
+    });
+
+    //on keydown, clear the countdown 
+    $input.on('keydown', function () {
+        clearTimeout(typingTimer);
+    });
+
+    //user is "finished typing," do something
+    function doneTyping () {
+      console.log("donetyping");
+    }
+
+    $('.input').keypress(function (e) {
+        if (e.which == 13) {
+            var query = $('.input').val();
+            var url = window.location.href + query;
+            $.get(url, function(resp) {
+                console.log(resp);
+                 $('.input').val('');
+                $('#output').empty();
+                $('#output').append(resp.score);
+            })
+        }
+    });
+</script>
+
+</body>
+</html>
