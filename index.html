@@ -7,6 +7,9 @@
     <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
+  <audio controls>
+    <source src="ping.mp3" type="audio/mpeg">
+  </audio>
   <!-- Gradient that fades edges of viewport -->
   <div class="fade-left"></div>
   <div class="fade-right"></div>
@@ -23,28 +26,22 @@
   <script type="text/javascript">
       $( document ).ready(function() {
           $(".input").focus();
-      });
+          var audioElement = document.createElement('audio');
+          audioElement.setAttribute('src', 'ping.mp3');
+          audioElement.setAttribute('autoplay:false', 'autoplay');
 
-      // // Setup before functions.
-      // var typingTimer;
-      // var doneTypingInterval = 1000;
-      // var $input = $('.input');
-      //
-      // // On keyup, start the countdown
-      // $input.on('keyup', function () {
-      //     clearTimeout(typingTimer);
-      //     typingTimer = setTimeout(doneTyping, doneTypingInterval);
-      // });
-      //
-      // //on keydown, clear the countdown
-      // $input.on('keydown', function () {
-      //     clearTimeout(typingTimer);
-      // });
-      //
-      // //user is "finished typing," do something
-      // function doneTyping () {
-      //   console.log("donetyping");
-      // }
+          $.get();
+          audioElement.addEventListener("load", function () {
+              audioElement.play();
+          }, true);
+
+          $(document).keypress(function (e) {
+             if (e.which == 13) { //press enter the audio will play
+                 audioElement.play();
+               }
+         });
+
+      });
 
       $('.input').keypress(function (e) {
           if (e.which == 13) {
