@@ -1,89 +1,173 @@
-	html {
-		background-color: rgba(0,0,0,1);
+html {
+  background-color: rgba(0,0,0,0.95);
+}
+body {
+  font-family: 'Helvetica Neue', sans-serif;
+}
+.input {
+  border: 0;
+  background-color: rgba(0,0,0,0);
+  width: 400px;
+  height: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 50px;
+  font-weight: 200;
+  color: rgba(255, 255, 255, 0.9);
+}
+.fade-left,
+.fade-right {
+  width: 5px;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 99;
+  position: absolute;
+  top: 0;
+  /*left to right gradient*/
+  -webkit-box-shadow: 10px 10px 250px 250px rgba(0,0,0,0.8);
+  -moz-box-shadow: 10px 10px 250px 250px rgba(0,0,0,0.8);
+  box-shadow: 10px 10px 250px 250px rgba(0,0,0,0.8);
+}
+.fade-right {
+	right: 0;
+}
+.fade-left {
+	left: 0;
+}
+.input:focus {
+  outline: none;
+}
+.light,
+.light:nth-of-type(2),
+.light:nth-of-type(3) {
+    width:0px;
+    height:0px;
+    margin: auto;
+    border-radius:50%;
+    position: absolute;
+}
+.light {
+		z-index: 19;
+    top: 0; left: 0; bottom: 0; right: 0;
+}
+.light:nth-of-type(2) {
+		z-index: 18;
+		top: 50; left: 0; bottom: 0; right: 0;
+}
+.light:nth-of-type(3) {
+		z-index: 15;
+		top: 50; left: 0; bottom: 0; right: 0;
+}
+.white {
+	-webkit-animation: flex 4s;
+	-moz-animation:    flex 4s;
+	-o-animation:      flex 4s;
+	animation:         flex 4s;
+	-webkit-animation-iteration-count: 1; /* Chrome, Safari, Opera */
+	animation-iteration-count: 1;
+	-webkit-box-shadow: 0px 0px 170px 40px rgba(255, 255, 255, 1);
+	-moz-box-shadow: 0px 0px 170px 40px rgba(255, 255, 255, 1);
+	box-shadow: 0px 0px 170px 40px rgba(255, 255, 255, 1);
+}
+.green {
+	-webkit-animation: flex 4s;
+	-moz-animation:    flex 4s;
+	-o-animation:      flex 4s;
+	animation:         flex 4s;
+	-webkit-animation-iteration-count: 1; /* Chrome, Safari, Opera */
+	animation-iteration-count: 1;
+	-webkit-box-shadow: 0px 0px 170px 40px rgba(0, 200,0,1);
+	-moz-box-shadow: 0px 0px 170px 40px rgba(0, 200,0,1);
+	box-shadow: 0px 0px 170px 40px rgba(0, 200,0,1);
+}
+.red {
+	-webkit-animation: flex 4s;
+  -moz-animation:    flex 4s;
+  -o-animation:      flex 4s;
+  animation:         flex 4s;
+	-webkit-animation-iteration-count: 1; /* Chrome, Safari, Opera */
+  animation-iteration-count: 1;
+  -webkit-box-shadow: 0px 0px 170px 40px rgba(250, 0,0,1);
+  -moz-box-shadow: 0px 0px 170px 40px rgba(250, 0,0,1);
+  box-shadow: 0px 0px 170px 40px rgba(250, 0,0,1);
+}
+.white-delay {
+  -webkit-animation: flex-delay 6s;
+  -moz-animation:    flex-delay 6s;
+  -o-animation:      flex-delay 6s;
+  animation:         flex-delay 6s;
+	-webkit-animation-iteration-count: 1; /* Chrome, Safari, Opera */
+  animation-iteration-count: 1;
+  -webkit-box-shadow: 0px 0px 170px 40px rgba(255,255,255,1);
+  -moz-box-shadow: 0px 0px 170px 40px rgba(255,255,255,1);
+  box-shadow: 0px 0px 170px 40px rgba(255,255,255,1);
+}
+.green-delay {
+  -webkit-animation: flex-delay 5s;
+  -moz-animation:    flex-delay 5s;
+  -o-animation:      flex-delay 5s;
+  animation:         flex-delay 5s;
+	-webkit-animation-iteration-count: 1; /* Chrome, Safari, Opera */
+  animation-iteration-count: 1;
+  -webkit-box-shadow: 0px 0px 170px 40px rgba(250,250,100,1);
+  -moz-box-shadow: 0px 0px 170px 40px rgba(250,250,100,1);
+  box-shadow: 0px 0px 170px 40px rgba(250,250,100,1);
+}
+.red-delay {
+  -webkit-animation: flex-delay 5s;
+  -moz-animation:    flex-delay 5s;
+  -o-animation:      flex-delay 5s;
+  animation:         flex-delay 5s;
+	-webkit-animation-iteration-count: 1; /* Chrome, Safari, Opera */
+  animation-iteration-count: 1;
+  -webkit-box-shadow: 0px 0px 170px 40px rgba(250,100,250,1);
+  -moz-box-shadow: 0px 0px 170px 40px rgba(250,100,250,1);
+  box-shadow: 0px 0px 170px 40px rgba(250,100,250,1);
+}
+/*Animations - - - - - - - - - - */
+@keyframes flex {
+  0%,100% {
+    transform: scale(1);
+    opacity: 0;
+    background-color: none;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+@-webkit-keyframes flex {
+  0%,100% {
+    -webkit-transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.2);
+  }
+}
+@keyframes flex-delay {
+  0% {
+    opacity: 0;
+  }
+  25%,100% {
+    transform: scale(1);
+    opacity: 0;
+    background-color: none;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+}
+@-webkit-keyframes flex-delay {
+	0% {
+		opacity: 0;
 	}
-	body {
-		font-family: 'Helvetica Neue', sans-serif;
-	}
-	.input {
-		border: 0;
-		background-color: rgba(0,0,0,0);
-		width: 500px;
-		height: 250px;
-		position: absolute;
-		top: 0;
-		left: 0;
-		font-size: 200px;
-		font-weight: 200;
-		color: rgba(255, 255, 255, 0.3);
-	}
-	.text-fade {
-		width: 1px;
-		height: 250px;
-		background-color: rgba(0, 0, 0, 0.8);
-		z-index: 99;
-		position: absolute;
-		top: 0;
-		left: 0;
-		/*left to right gradient*/
-		-webkit-box-shadow: 10px 10px 250px 250px rgba(0,0,0,0.7);
-		-moz-box-shadow: 10px 10px 250px 250px rgba(0,0,0,0.7);
-		box-shadow: 10px 10px 250px 250px rgba(0,0,0,0.7);
-	}
-	.input:focus {
-		outline: none;
-	}
-	.light {
-			width:0px;
-			height:0px;
-			margin: auto;
-			border-radius:50%;
-			position: absolute;
-			top: 0; left: 0; bottom: 0; right: 0;
-	}
-	.red {
-		-webkit-animation: flex 4s;
-		-moz-animation:    flex 4s;
-		-o-animation:      flex 4s;
-		animation:         flex 4s;
-		-webkit-box-shadow: 0px 0px 200px 30px rgba(255,0,0,0.9);
-		-moz-box-shadow: 0px 0px 200px 30px rgba(255,0,0,0.9);
-		box-shadow: 0px 0px 200px 30px rgba(255,0,0,0.9);
-	}
-	.green {
-		-webkit-animation: flex 4s;
-		-moz-animation:    flex 4s;
-		-o-animation:      flex 4s;
-		animation:         flex 4s;
-		-webkit-box-shadow: 0px 0px 200px 30px rgba(0,255,0,0.9);
-		-moz-box-shadow: 0px 0px 200px 30px rgba(0,255,0,0.9);
-		box-shadow: 0px 0px 200px 30px rgba(0,255,0,0.9);
-	}
-	.white {
-		-webkit-animation: flex 4s;
-		-moz-animation:    flex 4s;
-		-o-animation:      flex 4s;
-		animation:         flex 4s;
-		-webkit-box-shadow: 0px 0px 200px 30px rgba(255,255,255,0.9);
-		-moz-box-shadow: 0px 0px 200px 30px rgba(255,255,255,0.9);
-		box-shadow: 0px 0px 200px 30px rgba(255,255,255,0.9);
-	}
-	/*Animations - - - - - - - - - - */
-	@keyframes flex {
-		0%,100% {
-			transform: scale(1);
-			opacity: 0;
-			background-color: none;
-		}
-		50% {
-			transform: scale(1.2);
-			opacity: 1;
-		}
-	}
-	@-webkit-keyframes flex {
-		0%,100% {
-			-webkit-transform: scale(1);
-		}
-		50% {
-			-webkit-transform: scale(1.1);
-		}
-	}
+  25%,100% {
+    -webkit-transform: scale(2);
+  }
+  50% {
+    -webkit-transform: scale(1.4);
+		opacity: 1;
+  }
+}

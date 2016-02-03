@@ -7,19 +7,17 @@
     <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-  <!-- Gradient that fades the input text -->
-  <div class="text-fade"></div>
+  <!-- Gradient that fades edges of viewport -->
+  <div class="fade-left"></div>
+  <div class="fade-right"></div>
 
   <!-- Input box that sends string to API -->
   <input id="thoughts" class="input" />
 
   <!-- Light that emulates and is dependant on sentiment score -->
-  <div class="light"></div>
-  <div class="light"></div>
-  <div class="light"></div>
-  <div class="light"></div>
-  <div class="light"></div>
-  <div class="light"></div>
+  <div id="1" class="light"></div>
+  <div id="2" class="light"></div>
+  <div id="3" class="light"></div>
   <!-- <div id="score"></div> -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
   <script type="text/javascript">
@@ -27,26 +25,26 @@
           $(".input").focus();
       });
 
-      // Setup before functions.
-      var typingTimer;
-      var doneTypingInterval = 1000;
-      var $input = $('.input');
-
-      // On keyup, start the countdown
-      $input.on('keyup', function () {
-          clearTimeout(typingTimer);
-          typingTimer = setTimeout(doneTyping, doneTypingInterval);
-      });
-
-      //on keydown, clear the countdown
-      $input.on('keydown', function () {
-          clearTimeout(typingTimer);
-      });
-
-      //user is "finished typing," do something
-      function doneTyping () {
-        console.log("donetyping");
-      }
+      // // Setup before functions.
+      // var typingTimer;
+      // var doneTypingInterval = 1000;
+      // var $input = $('.input');
+      //
+      // // On keyup, start the countdown
+      // $input.on('keyup', function () {
+      //     clearTimeout(typingTimer);
+      //     typingTimer = setTimeout(doneTyping, doneTypingInterval);
+      // });
+      //
+      // //on keydown, clear the countdown
+      // $input.on('keydown', function () {
+      //     clearTimeout(typingTimer);
+      // });
+      //
+      // //user is "finished typing," do something
+      // function doneTyping () {
+      //   console.log("donetyping");
+      // }
 
       $('.input').keypress(function (e) {
           if (e.which == 13) {
@@ -54,22 +52,43 @@
               var url = window.location.href + query;
               $.get(url, function(resp) {
                   console.log(resp);
-
                   // clear values
                   $('.input').val('');
                   $('#output').empty();
                   $('#output').append(resp.score);
 
-                  if (resp.score > 0) {
-                      $('.light').addClass('green');
-                  } else if (resp.score < 0) {
-                      $('.light').addClass('red');
+                  if (resp.score < -4) {
+                      $('#1').addClass('red');
+                      $('#2').addClass('red-delay');
+                      $('#3').addClass('white-delay');
+                  } else if (resp.score == -3) {
+                    $('#1').addClass('red');
+                    $('#2').addClass('red-delay');
+                  } else if ((resp.score < 0) && (resp.score > -3)) {
+                      $('#2').addClass('red-delay');
+                  } else if (resp.score == 0) {
+                      $('#1').addClass('white');
+                  } else if ((resp.score > 0) && (resp.score < 3)) {
+                      $('#2').addClass('green-delay');
+                  } else if (resp.score == 3) {
+                      $('#1').addClass('green');
+                      $('#2').addClass('green-delay');
+                  } else if (resp.score >= 4) {
+                      $('#1').addClass('green');
+                      $('#2').addClass('green-delay');
+                      $('#3').addClass('white-delay');
                   } else {
-                      $('.light').addClass('white');
+                      $('#1').addClass('white');
                   }
                   setTimeout(function () {
-                      $('.light').removeClass('green red white');
+                      $('#1').removeClass('green red white');
                     }, 4000);
+                  setTimeout(function () {
+                      $('#2').removeClass('green-delay red-delay white-delay');
+                  }, 5000);
+                  setTimeout(function () {
+                      $('#3').removeClass('white-delay');
+                  }, 6000);
               })
           }
       });
